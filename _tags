@@ -1,0 +1,7 @@
+# OCamlbuild tags file
+true: strict_sequence, annot, debug
+<src/cli/*>: include, package(core), package(opium)
+
+# Executable
+# <server.{native,byte}>: package(cow.syntax), package(opium)
+# <src/cli/*>: include, package(core), core(ANSITerminal), package(fileutils), package(dolog), package(unix), package(yojson)
