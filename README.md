@@ -1,24 +1,24 @@
-Hajime (はじめ)
-===============
+Jyrkkä
+======
 
-Hajime is a configuration daemon.
+Jyrkkä is a configuration daemon.
 
 
 Configuration structure
 -----------------------
 
-A hajime configuratoin is :
+A Jyrkkä configuratoin is :
 
 * either a full tree, with keys, types, and default values
 * or a partial tree (a "patch"), with an additional attribute "parent" at the root element
 
 
-### Hajime tree
+### JYRKKA tree
 
-/etc/hajime/tree.conf
+/etc/jyrkka/tree.conf
 
 ```
-name: Hajime
+name: Jyrkka
 type: object
 default: ...
 body: 
@@ -29,15 +29,15 @@ body:
     
 ```
 
-### Hajime migration
+### Jyrkka migration
 
 ```
 rename:
-  src: Hajime.WLANConfiguration.OpticLine
-  dst: Hajime.Network.FiberNetwork
+  src: Jyrkka.WLANConfiguration.OpticLine
+  dst: Jyrkka.Network.FiberNetwork
 
 prepend:
-  parent: Hajime.Network
+  parent: Jyrkka.Network
   name: Fiber
   type: object
   default: true
@@ -55,15 +55,15 @@ Configuration update
 - A configuration update is a transaction
 - It must start with the BEGIN UPDATE command
 - It must include a list of commands
-  - DELETE Hajime.PPPConfiguration.
-  - SET Hajime.WLANConfiguration.Name = "value"
+  - DELETE Jyrkka.PPPConfiguration.
+  - SET Jyrkka.WLANConfiguration.Name = "value"
 - It must end either with a ROLLBACK or a COMMIT command
 
 ## JSON
 
 ```
 [{ delete: { key: "..." } },
- { update: { key: "Hajime.WLANConfiguration", value: "..." } },
+ { update: { key: "Jyrkka.WLANConfiguration", value: "..." } },
  ...
 ]
 ```
@@ -80,10 +80,10 @@ Application scripts
 
 Script registration is static only (only at launch time)
 
-/etc/hajime/scripts.conf
+/etc/jyrkka/scripts.conf
  
 ```
-REGISTER Hajime.PPPConfiguration /etc/hajime/update-ppp-configuration
+REGISTER Jyrkka.PPPConfiguration /etc/jyrkka/update-ppp-configuration
 REGISTER 
 ```
 
@@ -97,12 +97,12 @@ Reading values
 
 ## CLI
 
-    $ hajime-cli get Hajime.something
+    $ jyrkka-cli get Jyrkka.something
     value
 
-    $ hajime-cli export Hajime
-    HAJIME_PPPCONFIGURATION=value1
-    HAJIME_WANCONFIGURATION=value2
+    $ jyrkka-cli export Jyrkka
+    JYRKKA_PPPCONFIGURATION=value1
+    JYRKKA_WANCONFIGURATION=value2
 
 
 Communication between daemon & cli
