@@ -16,5 +16,7 @@ remove: ["ocamlfind" "remove" "delphon-dispatcher"]
 depends: [
   "ocamlfind" {build}
   "core" {build}
+  "jingoo" {build}
   "opium" {build}
+  "ounit" {build}
 ]
