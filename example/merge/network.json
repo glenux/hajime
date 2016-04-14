@@ -1,0 +1,13 @@
+{
+	"parent": "/Jyrkka",
+	"node": "Network",
+	"type": "object",
+	"content": [
+		{
+			"node": "Enable",
+			"type": "boolean",
+			"default": "true"
+		}
+		
+	]
+}
