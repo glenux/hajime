@@ -2,8 +2,8 @@ open Core.Std
 
 type cli_action_t = 
     | CliNone
-    | CliMerge of string
-    | CliLoad of string
+    | CliMerge
+    | CliLoad 
 
 let parse_cmdline () = 
     let open Arg in
@@ -12,16 +12,27 @@ let parse_cmdline () =
     let conf_verbose = ref false in 
     let conf_action = ref CliNone in
 
+    let parse_action = function 
+        | "merge" -> conf_action := CliMerge
+        | "load" -> conf_action := CliLoad 
+        | _ -> conf_action := CliNone
+    in
 
-let speclist = [
-    ("-b", Arg.Set somebool, ": set somebool to true");
-    ("-s", Arg.Set_string somestr, ": what follows -s sets some string");
-    ("-d", Arg.Set_int someint, ": some int parameter");
-]
+    let usage = "usage: " ^ Sys.argv.(0) ^ "[options...]" in 
+    let speclist = [
+        ("-v", Set conf_verbose,   ": set somebool to true");
+        ("-s", String parse_action, ": what follows -s sets some string")
+    ] in
+    let error_fn arg = raise (Bad ("Bad argument : " ^ arg)) in 
+
+    (* Read the arguments *)
+    parse speclist error_fn usage ;
+
+    (* Return a value *)
+    ( !conf_action, !conf_action )
+
 
 let _ = 
-    Arg.parse speclist
-        (fun x -> raise (Arg.Bad ("Bad argument : " ^ x)))
-        usage;
+    let config = parse_cmdline () in
     print_string "Patoune"
 
