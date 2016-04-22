@@ -5,34 +5,50 @@ type cli_action_t =
   | CliBuild
   | CliLoad 
 
+type cli_config_t = {
+  input_file: string ;
+  verbose : bool ;
+}
+
+type error =
+  | Unknown of string
+  | Wrong of string * string * string  (* option, actual, expected *)
+  | Missing of string
+  | Message of string
+
+exception Stop of error;; (* used internally *)
+
 let parse_cmdline () = 
   let open Arg in
 
   (* default values *)
-  let conf_verbose = ref false in 
-  let conf_action = ref CliNone in
-
-  let parse_action = function 
-    | "merge" -> conf_action := CliBuild
-    | "load" -> conf_action := CliLoad 
-    | _ -> conf_action := CliNone
+  let conf_verbose    = ref false
+  and conf_input_file = ref ""
+  and conf_help       = ref false
   in
 
-  let usage = "usage: " ^ Sys.argv.(0) ^ "[options...]" in 
-  let speclist = [
-    ("-v", Set conf_verbose,   ": set somebool to true");
-    ("-s", String parse_action, ": what follows -s sets some string")
-  ] in
-  let error_fn arg = raise (Bad ("Bad argument : " ^ arg)) in 
+  let usage = "Usage: " ^ Sys.argv.(0) ^ " [options...]\n\nOptions:\n"
+  and speclist = [
+    ("-v"    , Set conf_verbose          , "\t\tSet somebool to true");
+    ("-i"    , Set_string conf_input_file, "FILE\tInput configuration FILE") ;
+  ]
+  and error_fn arg = raise (Bad ("Bad argument : " ^ arg)) 
+  in 
 
   (* Read the arguments *)
   parse speclist error_fn usage ;
 
   (* Return a value *)
-  ( !conf_action, !conf_action )
+  { 
+    input_file = !conf_input_file ;
+    verbose    = !conf_verbose
+  }
 
+let run_cmdline config =
+  ()
 
 let _ = 
-  let config = parse_cmdline () in
-  print_string "Patoune"
+  parse_cmdline ()
+  |> run_cmdline ;
+  exit 0
 
