@@ -1,6 +1,13 @@
 # OCamlbuild tags file
 true: strict_sequence, annot, debug
+true: package(unix)
+
+<extern/*/lib/*>: include
+
 <src/cli/*>: include, package(core), package(opium)
+<src/daemon/*>: include, package(core), package(opium)
+
+<test/*>: package(ppx_deriving.std), package(core), package(oUnit), package(str)
 
 # Executable
 # <server.{native,byte}>: package(cow.syntax), package(opium)
