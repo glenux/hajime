@@ -3,9 +3,7 @@ open Core.Std
 open Option.Monad_infix
 open OUnit
 
-module Collector = Tw_storage_collector
-module Protocol = Tw_protocol
-
+(*
 let hash = Hashtbl.create String.hashable ()
 
 let test_create () = 
@@ -237,7 +235,9 @@ let test_clear () =
   assert_equal ~msg:"clear must empty the collector (float-single)"
     true @@ is_empty float_single ;
   ()
+  *)
 
+(*
 let test_fixture  = 
   "Tw_storage_collector" >:::
   [
@@ -259,4 +259,4 @@ let _ =
      | RTodo (_,_)    -> exit 1
      | _              -> ()
      end
-
+*)
