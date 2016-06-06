@@ -7,19 +7,13 @@ let test_create () =
   let module Node = Jy_node in
 
   let node_a = 
-    Node.create
-      ~name:"All your bases"
-      ~parent:None 
+    Node.create ~name:"All your bases" ()
   in 
   let node_b = 
-    Node.create
-      ~name:"Are belong to us"
-      ~parent:node_a
+     Node.create ~name:"Are belong to us" ~parent:node_a ()
   in
   ignore node_a ;
-  ignore node_b ;
-  ()
-
+  ignore node_b
 
 let test_id_of_node () =
   ()
