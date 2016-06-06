@@ -1,5 +1,5 @@
 
-(* open Core.Std *)
+open Core.Std
 (* open Option.Monad_infix *)
 open OUnit
 
@@ -12,6 +12,7 @@ let test_create () =
   let node_b = 
      Node.create ~name:"Are belong to us" ~parent:node_a ()
   in
+  print_endline @@ Node.to_string node_a ;
   ignore node_a ;
   ignore node_b
 
