@@ -30,7 +30,7 @@ let test_fixture  =
   "Jy_node" >:::
   [
     "create"     >:: test_create ;
-    "id_of_node" >:: test_feed ;
+    "id_of_node" >:: test_id_of_node ;
   ]
  
 
