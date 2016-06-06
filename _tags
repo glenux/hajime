@@ -2,11 +2,15 @@
 true: strict_sequence, annot, debug
 true: package(unix)
 
-<extern/*/lib/*>: include
+# Include dirs
+<src/lib>: include
+<extern/*/lib>: include
 
-<src/cli/*>: include, package(core), package(opium)
-<src/daemon/*>: include, package(core), package(opium)
+# Executable dirs
+<src/cli/*>: package(core), package(opium)
+<src/daemon/*>: package(core), package(opium)
 
+# Test dirs
 <test/*>: package(ppx_deriving.std), package(core), package(oUnit), package(str)
 
 # Executable
