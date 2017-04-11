@@ -45,6 +45,7 @@ let parse_cmdline () =
   }
 
 let run_cmdline config =
+  Printf.printf "input_file: %s\n" config.input_file ;
   ()
 
 let _ = 
